@@ -20,6 +20,7 @@ module Graphics.Svg.Attributes
   ) where
 
 import Graphics.Svg.Core
+import Data.Hashable
 import Data.Text (Text)
 
 -- | Make an 'Attribute' from it's value constructor and it's text value.
@@ -309,6 +310,11 @@ data AttrTag
   | YChannelselector_
   | Z_
   | ZoomAndPan_
+  deriving (Show,Enum)
+
+instance Hashable AttrTag where
+  hash = fromEnum
+  hashWithSalt s tag = s + hash tag
 
 -- Link the tags to their svg strings.
 tag2text :: AttrTag -> Text
