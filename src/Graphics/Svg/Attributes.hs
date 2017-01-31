@@ -310,7 +310,7 @@ data AttrTag
   | YChannelselector_
   | Z_
   | ZoomAndPan_
-  deriving (Show,Enum)
+  deriving (Show,Eq,Enum)
 
 instance Hashable AttrTag where
   hash = fromEnum
