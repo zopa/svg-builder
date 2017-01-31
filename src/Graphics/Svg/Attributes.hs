@@ -16,6 +16,7 @@ module Graphics.Svg.Attributes
   , (->>)
   , bindAttr
   , AttrTag(..)
+  , tag2text
   ) where
 
 import Graphics.Svg.Core
