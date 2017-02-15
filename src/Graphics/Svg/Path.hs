@@ -1,3 +1,4 @@
+{-# LANGUAGE CPP  #-}
 {-# LANGUAGE FlexibleContexts  #-}
 {-# LANGUAGE OverloadedStrings #-}
 
@@ -17,13 +18,22 @@ module Graphics.Svg.Path where
 
 import           Data.Text                        (Text)
 import qualified Data.Text                        as T
+
+#ifdef __GHCJS__
+import           Numeric                          (showFFloat)
+#else
 import           Data.Text.Lazy                   (toStrict)
 import           Data.Text.Lazy.Builder           (toLazyText)
 import           Data.Text.Lazy.Builder.RealFloat
+#endif
 
 -- | Convert a number to Text.
 toText :: RealFloat a => a -> Text
+#ifdef __GHCJS__
+toText r = T.pack $ showFFloat (Just 4) r ""
+#else
 toText = toStrict . toLazyText . formatRealFloat Fixed (Just 4)
+#endif
 
 -- | moveto (absolute)
 mA :: RealFloat a =>  a -> a -> Text
